@@ -22,9 +22,20 @@ const Image = () => {
             ...GatsbyImageSharpFluid
           }
         }
-      }
+      },
+      allFile(filter: { sourceInstanceName: { eq: "images" } }) {
+        edges {
+          node {
+            extension
+            dir
+            modifiedTime
+          }
+        }
+      },
     }
   `)
+
+  console.log(data.allFile.edges[0]);
 
   if (!data?.placeholderImage?.childImageSharp?.fluid) {
     return <div>Picture not found</div>

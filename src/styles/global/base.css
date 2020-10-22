@@ -1,0 +1,23 @@
+* {
+   box-sizing: border-box;
+}
+
+body {
+  background-color: var(--colour-white);
+  color: var(--colour-black);
+  font-family: var(--typ-font-family-body);
+  font-weight: 300;
+  font-size: 18px;
+  line-height: 26px;
+}
+
+a {
+  border-bottom: 1px solid var(--colour-grey);
+  color: var(--colour-black);
+  text-decoration: none;
+}
+
+p {
+  margin-bottom: 10px;
+  margin-top: 0;
+}

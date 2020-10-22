@@ -1,0 +1,19 @@
+:root {
+  --colour-black: #4a4a4a;
+  --colour-dark-grey: #c0c0c0;
+  --colour-grey: #dddddd;
+  --colour-white: #fafafa;
+  --colour-translucent-white: rgba(250, 250, 250, 0.9);
+  --colour-transparent-black: rgba(0, 0, 0, 0.1);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --colour-black: #fafafa;
+    --colour-dark-grey: #3f3f3f;
+    --colour-grey: #222222;
+    --colour-white: #000000;
+    --colour-translucent-white: rgba(0, 0, 0, 0.9);
+    --colour-transparent-black: rgba(250, 250, 250, 0.1);
+  }
+}

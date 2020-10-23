@@ -108,11 +108,10 @@ export default function SinglePhoto({
             alt={name || photo.fluid.originalName}
           />
           <div className="single-photo__under">
-            {description && (
-              <figcaption className="single-photo__caption">
-                {description}
-              </figcaption>
-            )}
+            <figcaption className="single-photo__caption">
+              {description}
+            </figcaption>
+
             <footer className="single-photo__footer">
               <small>
                 Copyright {new Date().getFullYear()} &copy; Joe Langford

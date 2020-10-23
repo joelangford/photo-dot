@@ -12,53 +12,6 @@ function getExif(photoPath) {
   });
 }
 
-async function photoPages({ graphql, actions }) {
-  const singlePhotoTemplate = path.resolve('./src/templates/SinglePhoto.js');
-
-  const { data } = await graphql(`
-    query {
-      photos: allFile(filter: { sourceInstanceName: { eq: "photos" } }) {
-        nodes {
-          id
-          name
-          absolutePath
-          base
-        }
-      }
-      allExif: allExif {
-        nodes {
-          name
-          fileName
-          description
-          id
-        }
-      }
-    }
-  `);
-
-  async function constructPhotoPage(photo, exif) {
-    const pageDir = processPhotoUrlString(photo, exif);
-
-    actions.createPage({
-      path: `/${pageDir}`,
-      component: singlePhotoTemplate,
-      context: {
-        id: photo.id,
-        base: photo.base,
-        exif,
-      },
-    });
-  }
-
-  const photos = data.photos.nodes;
-  const allExif = data.allExif.nodes;
-
-  photos.forEach((photo) => {
-    const exif = allExif.find((exifEntry) => exifEntry.fileName === photo.base);
-    constructPhotoPage(photo, exif);
-  });
-}
-
 async function createExifNodes({ actions, createNodeId, createContentDigest }) {
   const photosFolder = process.env.npm_package_config_photosdir;
 
@@ -85,10 +38,61 @@ async function createExifNodes({ actions, createNodeId, createContentDigest }) {
   });
 }
 
+async function photoPages({ graphql, actions }) {
+  const singlePhotoTemplate = path.resolve('./src/templates/SinglePhoto.js');
+
+  const { data } = await graphql(`
+    query {
+      photos: allFile(filter: { sourceInstanceName: { eq: "photos" } }) {
+        nodes {
+          id
+          name
+          absolutePath
+          base
+        }
+      }
+      allExif: allExif {
+        nodes {
+          name
+          fileName
+          description
+          id
+        }
+      }
+    }
+  `);
+
+  function constructPhotoPage(photo, exif) {
+    const pageDir = processPhotoUrlString(photo, exif);
+
+    actions.createPage({
+      path: `/${pageDir}`,
+      component: singlePhotoTemplate,
+      context: {
+        id: photo.id,
+        base: photo.base,
+        exif,
+      },
+    });
+  }
+
+  const photos = data.photos.nodes;
+  const allExif = data.allExif.nodes;
+
+  photos.forEach((photo) => {
+    const exif = allExif.find((exifEntry) => exifEntry.fileName === photo.base);
+    constructPhotoPage(photo, exif);
+  });
+}
+
 export async function sourceNodes(params) {
-  await Promise.all([createExifNodes(params)]);
+  await Promise.all([createExifNodes(params)]).then(() => {
+    console.log('Additional nodes created.');
+  });
 }
 
 export async function createPages(params) {
-  await Promise.all([photoPages(params)]);
+  await Promise.all([photoPages(params)]).then(() => {
+    console.log('Pages built.');
+  });
 }

@@ -10,29 +10,29 @@ const ImageListStyles = styled.section`
   margin-top: 40px;
 
   @media (min-width: 768px) {
-    margin: 80px auto;
+    margin: 80px auto 0;
   }
 `;
 
-const ImageList = ({ photos, allExif }) => {
-  console.log(allExif);
-  console.log(photos);
-  return (
-    <ImageListStyles>
-      {photos.map((photo) => {
-        const exif = allExif.find(
-          (exifEntry) => exifEntry.fileName === photo.base
-        );
-        console.log(exif);
+const ImageList = ({ photos, allExif }) => (
+  <ImageListStyles>
+    {photos.map((photo) => {
+      const exif = allExif.find(
+        (exifEntry) => exifEntry.fileName === photo.base
+      );
 
-        return (
-          <Link to={processPhotoUrlString(photo, exif)}>
-            <Img fluid={photo.childImageSharp.fluid} />
-          </Link>
-        );
-      })}
-    </ImageListStyles>
-  );
-};
+      const name = exif.name ? exif.name : null;
+
+      return (
+        <Link to={processPhotoUrlString(photo, exif)} key={photo.id}>
+          <Img
+            fluid={photo.childImageSharp.fluid}
+            alt={name || photo.fluid.originalName}
+          />
+        </Link>
+      );
+    })}
+  </ImageListStyles>
+);
 
 export default ImageList;

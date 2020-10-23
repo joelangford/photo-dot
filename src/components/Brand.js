@@ -47,7 +47,7 @@ const Brand = () => {
   );
   return (
     <BrandStyles>
-      <Link href="/" class="brand">
+      <Link to="/" className="brand">
         {site.siteMetadata?.subDomain && (
           <span className="brand--light-text">
             {site.siteMetadata?.subDomain}

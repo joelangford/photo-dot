@@ -2,6 +2,10 @@
 
 A static photo gallery website generator that is built using the meta and exif data of your photos.
 
+## Live Demo
+
+https://photo.joelangford.com/
+
 ## Quickstart
 
 1. Install gatsby cli globally `npm install -g gatsby-cli`
@@ -14,7 +18,7 @@ A static photo gallery website generator that is built using the meta and exif d
 ## Deployment
 
 1. Run `npm run build`
-2. Drag the `/public` folder to your server enviroment
+2. Drag via ftp software or copy via scp the `/public` folder to your server enviroment e.g. `scp -r public/* root@123.123.123.123:/var/www/photo.mysite.com`
 
 ## Advanced features
 

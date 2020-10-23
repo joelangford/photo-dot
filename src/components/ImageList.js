@@ -7,7 +7,11 @@ import processPhotoUrlString from '../helpers/processPhotoUrlString';
 const ImageListStyles = styled.section`
   display: grid;
   grid-template-columns: auto auto auto auto;
-  margin-top: 80px;
+  margin-top: 40px;
+
+  @media (min-width: 768px) {
+    margin: 80px auto;
+  }
 `;
 
 const ImageList = ({ photos, allExif }) => {
